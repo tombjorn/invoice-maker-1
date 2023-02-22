@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVOICE MAKER</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="html2canvas.min.js"></script>
+    <script>
+        function create() {
+            html2canvas(document.querySelector("main")).then((canvas) => {
+                var imgData = canvas.toDataURL("image/png");
+                var doc = new jsPDF("p", "mm");
+                doc.addImage(imgData, "PNG", 10, 10);
+                doc.save("sample-file.pdf");
+              });
+            }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Invoice Maker</h1>
+    </header>
+
+    <main id="invoice">
+        <div id="invoice-number">
+            <h2>Invoice #666</h2>
+        </div>
+        <div class="recipient-wrapper">
+            <form>
+            <div>
+                <h3>Recipient Details: </h3>
+            </div>
+              <div>
+                <label for="name">Name</label>
+                <input required type="text" id="name" name="name" autocomplete="name" enterkeyhint="next">
+              </div>
+              <div>
+                <label for="street-address">Street address</label>
+                <input type="text" id="street-address" name="street-address" autocomplete="street-address" required enterkeyhint="next"></input>
+              
+              </div>
+              <div>
+                <label for="postal-code">Post Code</label>
+                <input class="postal-code" id="postal-code" name="postal-code" autocomplete="postal-code" enterkeyhint="next">
+              </div>
+              <div>
+                <label for="city">City</label>
+                <input required type="text" id="city" name="city" autocomplete="address-level2" enterkeyhint="next">
+              </div>
+            </form>
+        </div>
+        <div id="task-list">
+            
+        </div>
+        </div>
+            <div class="total">
+                <div id="total-input" type="text">Total : £0.00</div>
+            </div>
+            
+        </main>
+        <div id="add-task-wrapper">
+            <form id="add-task-form">
+                <button id="add-task-button">Add Task</button>
+            </form>
+        </div>
+        <form class="create_pdf">
+            <button id="pdf-submit" onclick="create()">Create PDF</button>
+        </form> 
+
+</body>
+
+</html>
